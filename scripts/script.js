@@ -1,22 +1,35 @@
 // window.onload = () => {
-homePage = document.getElementById("home-page");
-btnStart = document.getElementById("start-button");
-btnStop = document.getElementById("stop-button");
-btnAgain = document.getElementById("start-again");
+const homePage = document.getElementById("home-page");
+const btnStart = document.querySelectorAll(".load-new-game");
+const btnStop = document.getElementById("stop-button");
+const nav = document.querySelector(".navigation");
+//btnAgain = document.getElementById("start-again");
 
 let game = null;
 
-btnStart.addEventListener("click", () => {
-  game = new Game();
-  game.startGame();
-  console.log(game);
-  btnStart.disabled = true;
-  btnStart.style.display = "none";
-  homePage.style.display = "none";
+btnStart.forEach((element) => {
+  console.log(element);
+  element.addEventListener("click", () => {
+    game = new Game();
+    game.startGame();
+    btnStart.disabled = true;
+    element.style.display = "none";
+  });
 });
 if (!game) {
-  btnStop.disabled = true;
+  nav.style.display = "none";
+  //btnStop.disabled = true;
+  //btnStop.style.display = "none";
 }
+// btnStart.addEventListener("click", () => {
+//   game = new Game();
+//   game.startGame();
+//   console.log(game);
+//   btnStart.disabled = true;
+//   btnStart.style.display = "none";
+//   homePage.style.display = "none";
+// });
+//
 
 class BackgroundSky {
   constructor(canvas, ctx) {
@@ -36,7 +49,7 @@ class BackgroundSky {
 class BackgroundFire {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/background/background-fire.png";
+    this.image.src = "img/background/background-fire.png";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = -50;
@@ -62,7 +75,7 @@ class BackgroundFire {
 class Kitten {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/cat.png";
+    this.image.src = "img/cat.png";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = Math.floor(Math.random() * this.canvas.width);
@@ -103,7 +116,7 @@ class Kitten {
 class Puppy {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/puppy5.png";
+    this.image.src = "img/puppy5.png";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = Math.floor(Math.random() * this.canvas.width);
@@ -137,7 +150,7 @@ class Puppy {
 class Baby {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/text/baby.png";
+    this.image.src = "img/text/baby.png";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = 0;
@@ -195,7 +208,7 @@ class Baby {
 class Basket {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/basket01.png";
+    this.image.src = "img/basket01.png";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = this.canvas.width / 2 - 100;
@@ -291,6 +304,9 @@ class Game {
   }
   mainGame() {
     //console.log("on");
+    homePage.style.display = "none";
+    nav.style.display = "block";
+
     this.intervalId = setInterval(() => {
       this.frames++;
       this.background.draw();
