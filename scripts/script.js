@@ -18,7 +18,7 @@ if (!game) {
 class BackgroundSky {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/background/backgroundSky.jpg";
+    this.image.src = "../img/background/backgroundSky.JPG";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = 0;
