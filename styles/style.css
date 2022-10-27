@@ -21,10 +21,12 @@ body {
     align-items: center;}
 
 #game-board  {
+    flex-direction: column;
     display: flex;
-    width: 100%;
     justify-content: center;
     align-items: center;
+    width: 1920px;
+    height: 1080px;
 
 }
 
@@ -47,6 +49,22 @@ body {
     display: flex;
     align-items: center;
     padding: 15px 0;
+    border-bottom: 1px #5a228b;
+    border-bottom-style: solid;
+}
+
+.baseline{
+    padding: 15px;
+}
+
+h3 {
+    font-size: 35px;
+}
+
+span {
+    font-size: 40px;
+    font-family: 'Pacifico', cursive;
+    color: #5a228b;
 }
 
 img {
