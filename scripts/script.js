@@ -434,11 +434,13 @@ class Game {
   }
 
   pauseAction() {
+    const notice = document.querySelector(".aside");
     if (btnStop.classList.contains("paused")) {
       clearInterval(this.intervalId);
       btnStop.classList.remove("paused");
       btnStop.classList.add("played");
       btnStop.textContent = "play";
+      notice.style.display = "block";
     } else {
       this.mainGame();
       btnStop.classList.remove("played");
