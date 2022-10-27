@@ -18,7 +18,7 @@ if (!game) {
 class BackgroundSky {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/background/backgroundSky.jpg";
+    this.image.src = "img/background/backgroundSky.jpg";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = 0;
@@ -33,7 +33,7 @@ class BackgroundSky {
 class BackgroundFire {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/background/background-fire.png";
+    this.image.src = "img/background/background-fire.png";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = -50;
@@ -59,7 +59,7 @@ class BackgroundFire {
 class Kitten {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/cat.png";
+    this.image.src = "img/cat.png";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = Math.floor(Math.random() * this.canvas.width);
@@ -100,7 +100,7 @@ class Kitten {
 class Puppy {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/puppy5.png";
+    this.image.src = "img/puppy5.png";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = Math.floor(Math.random() * this.canvas.width);
