@@ -145,11 +145,14 @@ class Baby {
     this.image = new Image();
     this.image.src = "img/text/baby.png";
     this.canvas = canvas;
+    this.shakeId = null;
     this.ctx = ctx;
     this.x = 0;
     this.y = 0;
     this.width = 150;
     this.height = 125;
+    this.shakeFactor = 1;
+    this.isShaking = false;
     this.direction = {
       x: 1,
       y: 1,
@@ -190,9 +193,18 @@ class Baby {
     this.x += 3 * this.direction.x;
     this.y += 2 * this.direction.y;
   }
+  moveRandom() {
+    this.x += Math.floor(Math.random() * 4) - 2;
+    this.y += Math.floor(Math.random() * 4) - 2;
+
+    this.draw();
+  }
   moveFaster() {
     this.x += 4 * this.direction.x;
     this.y += 3 * this.direction.y;
+  }
+  shake() {
+    this.isShaking = true;
   }
   draw() {
     this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
@@ -237,35 +249,7 @@ class Basket {
     this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 }
-// class Greating {
-//   constructor(canvas, ctx) {
-//     this.canvas = canvas;
-//     this.ctx = ctx;
-//     this.image = new Image();
-//     this.isImageOn = false;
-//     this.textImages = [
-//       "./../img/text/high-score01.png",
-//       "./../img/text/high-score02.png",
-//       "./../img/text/high-score03.png",
-//     ];
-//     this.image.src = "";
-//     //this.image.src = textImages[Math.floor(Math.random() * textImages.length)];
-//     this.x = -475;
-//     this.y = this.canvas.height / 2 - 50;
-//     this.width = 450;
-//     this.height = 100;
-//   }
-//   draw() {
-//     this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-//   }
-//   move() {
-//     if (this.x >= this.canvas.width) {
-//       return (this.x = -475);
-//     } else {
-//       this.x += 12;
-//     }
-//   }
-// }
+
 class Game {
   constructor() {
     this.canvas = null;
@@ -302,10 +286,15 @@ class Game {
     /////////////////////// INTERVAL ///////////////////////////////////////
     this.intervalId = setInterval(() => {
       this.frames++;
+
       this.background.draw();
       this.backgroundFire.draw();
       this.backgroundFire.move();
       this.basket.draw();
+      if (this.baby.isShaking) {
+        this.baby.moveRandom();
+        return;
+      }
       this.kittenPush();
       this.puppiesPush();
       this.getScore();
@@ -314,13 +303,6 @@ class Game {
     }, 1000 / 120);
   }
   ///////////////////////////////////MAIN ACTIONS ///////////////////////////////////////////
-  randomGreating() {
-    this.greating.image.src =
-      this.greating.textImages[
-        Math.floor(Math.random() * this.greating.textImages.length)
-      ];
-    console.log(this.greating.image.src);
-  }
 
   kittenPush() {
     //this.vitesse = 4;
@@ -391,7 +373,7 @@ class Game {
     return this.score;
   }
   babyPush() {
-    if (this.score >= 75) {
+    if (this.score >= 20) {
       this.baby.outOfBound();
       this.baby.draw();
       this.baby.move();
@@ -399,13 +381,18 @@ class Game {
     if (this.score >= 150) {
       this.baby.moveFaster();
     }
-    if (
-      this.baby.bottomEdge() >= this.basket.topEdge() &&
-      this.baby.leftEdge() >= this.basket.leftEdge() &&
-      this.baby.rightEdge() <= this.basket.rightEdge() &&
-      this.baby.bottomEdge() >= this.basket.bottomEdge()
-    ) {
-      this.gameOver();
+
+    const isInX =
+      this.baby.rightEdge() >= this.basket.leftEdge() &&
+      this.baby.leftEdge() <= this.basket.rightEdge();
+    const isInY =
+      this.baby.topEdge() <= this.basket.bottomEdge() &&
+      this.baby.bottomEdge() >= this.basket.topEdge();
+    if (isInX && isInY) {
+      this.baby.shake();
+      console.log("this is the third message");
+
+      //this.gameOver();
     }
   }
   checkCatch(animal, basket) {
@@ -441,10 +428,12 @@ class Game {
       clearInterval(this.intervalId);
       btnStop.classList.remove("paused");
       btnStop.classList.add("played");
+      btnStop.textContent = "play";
     } else {
       this.mainGame();
       btnStop.classList.remove("played");
       btnStop.classList.add("paused");
+      btnStop.textContent = "pause";
     }
   }
 
