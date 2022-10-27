@@ -276,7 +276,7 @@ class Game {
     ///////////////////////////// ADD ON /////////////////////////////////////////
     this.score = 0;
     this.vitesse = 4;
-    canvas.style.cursor = "none";
+    //canvas.style.cursor = "none";
   }
   init() {
     this.canvas = document.getElementById("canvas");
