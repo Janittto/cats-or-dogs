@@ -150,7 +150,7 @@ class Baby {
     this.x = 0;
     this.y = 0;
     this.width = 150;
-    this.height = 125;
+    this.height = 140;
     this.shakeFactor = 1;
     this.isShaking = false;
     this.direction = {
@@ -159,16 +159,16 @@ class Baby {
     };
   }
   topEdge() {
-    return this.y;
+    return this.y - 10;
   }
   rightEdge() {
-    return this.x + this.width;
+    return this.x + this.width - 10;
   }
   bottomEdge() {
-    return this.y + this.height;
+    return this.y + this.height - 10;
   }
   leftEdge() {
-    return this.x;
+    return this.x - 10;
   }
   outOfBound() {
     if (this.x + this.width > this.canvas.width) {
@@ -204,6 +204,10 @@ class Baby {
   moveFaster() {
     this.x += 4 * this.direction.x;
     this.y += 3 * this.direction.y;
+  }
+  moveFast() {
+    this.x += 2 * this.direction.x;
+    this.y += 1 * this.direction.y;
   }
   shake() {
     this.isShaking = true;
@@ -383,7 +387,7 @@ class Game {
     return this.score;
   }
   babyPush() {
-    if (this.score >= 20) {
+    if (this.score >= 50) {
       this.baby.outOfBound();
       this.baby.draw();
       this.baby.move();
