@@ -1,4 +1,5 @@
 // window.onload = () => {
+homePage = document.getElementById("home-page");
 btnStart = document.getElementById("start-button");
 btnStop = document.getElementById("stop-button");
 btnAgain = document.getElementById("start-again");
@@ -10,6 +11,8 @@ btnStart.addEventListener("click", () => {
   game.startGame();
   console.log(game);
   btnStart.disabled = true;
+  btnStart.style.display = "none";
+  homePage.style.display = "none";
 });
 if (!game) {
   btnStop.disabled = true;
@@ -18,7 +21,7 @@ if (!game) {
 class BackgroundSky {
   constructor(canvas, ctx) {
     this.image = new Image();
-    this.image.src = "../img/background/backgroundSky.JPG";
+    this.image.src = "img/background/backgroundSky.JPG";
     this.canvas = canvas;
     this.ctx = ctx;
     this.x = 0;
