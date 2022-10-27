@@ -112,6 +112,12 @@ button {
     filter: drop-shadow(0 0 0.35rem #5a228b);
 }
 
+button:active{
+    border : none;
+}
+button:visited{
+    border : none;
+}
 .load-new-game {
     margin-top: 30px;
 }
@@ -121,10 +127,7 @@ button:hover {
     animation-iteration-count: 1;
   }
 
-  button:active {
-    border-color: #5a228b;
-  }
-
+  
 
   @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }

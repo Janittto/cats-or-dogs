@@ -162,13 +162,13 @@ class Baby {
     return this.y - 10;
   }
   rightEdge() {
-    return this.x + this.width - 10;
+    return this.x + this.width - 20;
   }
   bottomEdge() {
-    return this.y + this.height - 10;
+    return this.y + this.height - 20;
   }
   leftEdge() {
-    return this.x - 10;
+    return this.x - 20;
   }
   outOfBound() {
     if (this.x + this.width > this.canvas.width) {
@@ -276,7 +276,7 @@ class Game {
     ///////////////////////////// ADD ON /////////////////////////////////////////
     this.score = 0;
     this.vitesse = 4;
-    //canvas.style.cursor = "none";
+    canvas.style.cursor = "none";
   }
   init() {
     this.canvas = document.getElementById("canvas");
@@ -395,6 +395,11 @@ class Game {
     if (this.score >= 100) {
       this.baby.moveFaster();
     }
+    if (this.score >= 150) {
+      this.baby.moveFast();
+    } else {
+      return;
+    }
 
     const isInX =
       this.baby.rightEdge() >= this.basket.leftEdge() &&
@@ -403,10 +408,12 @@ class Game {
       this.baby.topEdge() <= this.basket.bottomEdge() &&
       this.baby.bottomEdge() >= this.basket.topEdge();
     if (isInX && isInY) {
+      document.getElementById("mySound").play();
       this.baby.shake();
 
       setTimeout(() => {
         console.log("end");
+
         this.gameOver();
       }, 2000);
       //console.log("this is the third message");
