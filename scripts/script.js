@@ -388,7 +388,7 @@ class Game {
       this.baby.draw();
       this.baby.move();
     }
-    if (this.score >= 150) {
+    if (this.score >= 100) {
       this.baby.moveFaster();
     }
 
@@ -400,6 +400,11 @@ class Game {
       this.baby.bottomEdge() >= this.basket.topEdge();
     if (isInX && isInY) {
       this.baby.shake();
+
+      setTimeout(() => {
+        console.log("end");
+        this.gameOver();
+      }, 2000);
       //console.log("this is the third message");
       //this.baby.isShaking = false;
       //this.gameOver();
