@@ -451,7 +451,7 @@ class Game {
 
   gameOver() {
     const endMessage = document.querySelector("#looser-board");
-    const scoreParagraph = document.querySelector("#looser-board p");
+    const scoreParagraph = document.querySelector("#looser-board h3 span");
     const endGame = document.querySelector("#game-board");
     const endGameNav = document.querySelector(".navigation");
     clearInterval(this.intervalId);
