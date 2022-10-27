@@ -18,18 +18,9 @@ btnStart.forEach((element) => {
 });
 if (!game) {
   nav.style.display = "none";
-  //btnStop.disabled = true;
-  //btnStop.style.display = "none";
 }
-// btnStart.addEventListener("click", () => {
-//   game = new Game();
-//   game.startGame();
-//   console.log(game);
-//   btnStart.disabled = true;
-//   btnStart.style.display = "none";
-//   homePage.style.display = "none";
-// });
-//
+
+//////////////////////////////// OBJ  ///////////////////////////////
 
 class BackgroundSky {
   constructor(canvas, ctx) {
@@ -303,10 +294,10 @@ class Game {
     return this.mainGame();
   }
   mainGame() {
-    //console.log("on");
+    /////////////////////// DISPLAY HTML ///////////////////////////////////////
     homePage.style.display = "none";
-    nav.style.display = "block";
-
+    nav.style.display = "flex";
+    /////////////////////// INTERVAL ///////////////////////////////////////
     this.intervalId = setInterval(() => {
       this.frames++;
       this.background.draw();
@@ -320,7 +311,7 @@ class Game {
       //this.motivationPush();
     }, 1000 / 120);
   }
-  //
+  ///////////////////////////////////MAIN ACTIONS ///////////////////////////////////////////
   randomGreating() {
     this.greating.image.src =
       this.greating.textImages[

@@ -8,30 +8,27 @@
     <title>Cats or Dogs Lover</title>
 </head>
 <body>
-  <!-- <button id="start-button">Start</button>
-  <button id="stop-button">Stop</button> -->
-  <!-- <header>
-    <h1><img src="./../img/title.png" alt="logo"></h1>
-  </header> -->
-  <div id="home-page"><img src ="img/title.png" alt="home-page-tiltle"></div>
-  <button id="start-button" class="load-new-game">Start</button>
-  <div class="navigation">
-    <!--<h1 class="logo"></h1>-->
-   
+  <div id="home-page"><img src ="img/title.png" alt="home-page-tiltle">
+
+    <button id="start-button" class="load-new-game">Start</button>
+  </div>
+  
+  <div class="navigation">   
     <div class="nav button">
-      
       <button id="stop-button" class="paused">Stop</button>
     </div>
-        <div class="score"></div>
-    </div>
-     <div id="game-board">
+    <div class="score"></div>
+  </div>
+    
+  <div id="game-board">
         <canvas id="canvas" width="1920" height="1080"></canvas>
-        <!--<canvas id="canvas" width="1080" height="720"></canvas>-->
-      </div>
-      <div id="looser-board" class="not-visible">
-       <h2><img src="img/text/looser01.png" alt="looser-image"></h2>
-       <button id ="start-again" class="load-new-game">Again</button>
-      </div>
+  </div>
+     
+  <div id="looser-board" class="not-visible">
+        <h2><img src="img/text/looser01.png" alt="looser-image"></h2>
+        <p>Your score</p>
+       <button id ="start-again" class="load-new-game">Maybe start Again</button>
+  </div>
       <script type="text/javascript" src="scripts/script.js"></script>
 </body>
 </html>
