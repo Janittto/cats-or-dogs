@@ -3,9 +3,11 @@ const homePage = document.getElementById("home-page");
 const btnStart = document.querySelectorAll(".load-new-game");
 const btnStop = document.getElementById("stop-button");
 const nav = document.querySelector(".navigation");
+const canvasBlock = document.querySelector("#game-board");
 //btnAgain = document.getElementById("start-again");
 
 let game = null;
+canvasBlock.style.display = "none";
 
 btnStart.forEach((element) => {
   console.log(element);
