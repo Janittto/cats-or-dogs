@@ -15,7 +15,7 @@ btnStart.forEach((element) => {
     game = new Game();
     game.startGame();
     btnStart.disabled = true;
-    element.style.display = "none";
+    //element.style.display = "none";
   });
 });
 if (!game) {
@@ -145,7 +145,7 @@ class Baby {
     this.image = new Image();
     this.image.src = "img/text/baby.png";
     this.canvas = canvas;
-    this.shakeId = null;
+    this.shakeId = false;
     this.ctx = ctx;
     this.x = 0;
     this.y = 0;
@@ -196,8 +196,10 @@ class Baby {
   moveRandom() {
     this.x += Math.floor(Math.random() * 4) - 2;
     this.y += Math.floor(Math.random() * 4) - 2;
-
     this.draw();
+
+    //console.log("Delayed for 1 second.");
+    //
   }
   moveFaster() {
     this.x += 4 * this.direction.x;
@@ -205,6 +207,9 @@ class Baby {
   }
   shake() {
     this.isShaking = true;
+  }
+  timeShaking() {
+    this.shakeId = true;
   }
   draw() {
     this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
@@ -266,8 +271,6 @@ class Game {
     this.baby = new Baby(this.canvas, this.ctx);
     ///////////////////////////// ADD ON /////////////////////////////////////////
     this.score = 0;
-    //this.greatings = [];
-    // this.greating = new Greating(this.canvas, this.ctx);
     this.vitesse = 4;
     //canvas.style.cursor = "none";
   }
@@ -295,6 +298,13 @@ class Game {
         this.baby.moveRandom();
         return;
       }
+      if (this.baby.shakeId) {
+        //clearInterval(this.intervalId);
+        //this.gameOver();
+        console.log(this.shakeId);
+        console.log("fini");
+      }
+
       this.kittenPush();
       this.puppiesPush();
       this.getScore();
@@ -390,8 +400,8 @@ class Game {
       this.baby.bottomEdge() >= this.basket.topEdge();
     if (isInX && isInY) {
       this.baby.shake();
-      console.log("this is the third message");
-
+      //console.log("this is the third message");
+      //this.baby.isShaking = false;
       //this.gameOver();
     }
   }
@@ -439,6 +449,7 @@ class Game {
 
   gameOver() {
     const endMessage = document.querySelector("#looser-board");
+    const scoreParagraph = document.querySelector("#looser-board p");
     const endGame = document.querySelector("#game-board");
     const endGameNav = document.querySelector(".navigation");
     clearInterval(this.intervalId);
@@ -447,10 +458,11 @@ class Game {
     this.kittens = [];
     //this.intervalId = null;
     this.canvas.innerHTML = "";
+    scoreParagraph.textContent = this.score;
     endGame.style.display = "none";
     endGameNav.style.display = "none";
     endMessage.style.display = "flex";
-    //endMessage.classList.remove("not-visible");
+    //btnStart.style.display = "block"; //endMessage.classList.remove("not-visible");
     btnStop.disabled = true;
     btnStart.disabled = false;
   }

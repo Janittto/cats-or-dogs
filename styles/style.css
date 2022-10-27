@@ -18,15 +18,15 @@ body {
     flex-direction: column;
     display: flex;
     justify-content: center;
-    align-items: center;}
+    align-items: center;
+    width: 1920px;
+    height: 1080px;}
 
 #game-board  {
     flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1920px;
-    height: 1080px;
 
 }
 
@@ -51,6 +51,7 @@ body {
     padding: 15px 0;
     border-bottom: 1px #5a228b;
     border-bottom-style: solid;
+    background: aliceblue;
 }
 
 .baseline{
@@ -79,12 +80,16 @@ img {
 }
 
 button {
+    color: #5a228b;
     border: solid;
     padding: 15px 30px;
     text-transform: uppercase;
     background-color: aliceblue;
     border-radius: 5px;
     border-color: #5a228b;
+    width: 200px;
+    font-weight: 800;
+    font-size: 16px;
 }
 
 button:hover {
