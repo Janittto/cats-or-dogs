@@ -162,13 +162,13 @@ class Baby {
     return this.y - 10;
   }
   rightEdge() {
-    return this.x + this.width - 20;
+    return this.x + this.width - 10;
   }
   bottomEdge() {
-    return this.y + this.height - 20;
+    return this.y + this.height - 10;
   }
   leftEdge() {
-    return this.x - 20;
+    return this.x - 10;
   }
   outOfBound() {
     if (this.x + this.width > this.canvas.width) {
@@ -395,12 +395,10 @@ class Game {
     if (this.score >= 100) {
       this.baby.moveFaster();
     }
+
     if (this.score >= 150) {
       this.baby.moveFast();
-    } else {
-      return;
     }
-
     const isInX =
       this.baby.rightEdge() >= this.basket.leftEdge() &&
       this.baby.leftEdge() <= this.basket.rightEdge();
