@@ -445,6 +445,7 @@ class Game {
       this.mainGame();
       btnStop.classList.remove("played");
       btnStop.classList.add("paused");
+      notice.style.display = "none";
       btnStop.textContent = "pause";
     }
   }
