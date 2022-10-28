@@ -32,7 +32,9 @@ Try to do the best score possible and save the biggest number of your favorite a
 🔥  Technical Challenge 
 
 CANVAS
+
 DOM MANIPULATION
+
 OOP
 
 and a lots of conditions, differents loops.. all of that in an interval!
