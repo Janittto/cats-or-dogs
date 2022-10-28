@@ -20,7 +20,19 @@ body {
     justify-content: center;
     align-items: center;
     width: 1920px;
-    height: 1080px;}
+    height: 1080px;
+}
+
+.home-start-section {
+    display: flex;
+    align-items: baseline;
+    width: 1000px;
+    justify-content: space-around;
+}
+
+.home-start-section span:last-child {
+font-size: 28px;
+}
 
 #game-board  {
     flex-direction: column;
@@ -96,6 +108,10 @@ img {
     font-family: 'Pacifico', cursive;
     font-size : 28px;
     color: #5a228b;
+}
+
+.animal-kind {
+    font-size: 28px
 }
 
 button {

@@ -16,6 +16,13 @@ btnStart.forEach((element) => {
     game.startGame();
     btnStart.disabled = true;
     //element.style.display = "none";
+    if (element.classList.contains("cat")) {
+      console.log("cat lover");
+      return canvasBlock.classList.add("cat-lover");
+    } else if (element.classList.contains("dog")) {
+      return canvasBlock.classList.add("dog-lover");
+      console.log("dog lover");
+    }
   });
 });
 if (!game) {
@@ -271,9 +278,10 @@ class Game {
     this.backgroundFire = new BackgroundFire(this.canvas, this.ctx);
     this.basket = new Basket(this.canvas, this.ctx);
     this.kittens = [];
-    this.numberKittenSaved = [];
-    this.kittenSaved = 0;
+    this.numberSaved = [];
+    this.animalSaved = 0;
     this.puppies = [];
+
     this.baby = new Baby(this.canvas, this.ctx);
     ///////////////////////////// ADD ON /////////////////////////////////////////
     this.score = 0;
@@ -310,15 +318,23 @@ class Game {
         console.log(this.shakeId);
         console.log("fini");
       }
-
-      this.kittenPush();
-      this.puppiesPush();
+      if (canvasBlock.classList.contains("cat-lover")) {
+        console.log("lol");
+        this.kittenPush();
+        this.puppiesPush();
+      } else if (canvasBlock.classList.contains("dog-lover")) {
+        console.log("lol reverse");
+        this.kittenPushReverse();
+        this.puppiesPushReverse();
+      }
       this.getScore();
       this.babyPush();
       //this.motivationPush();
     }, 1000 / 120);
   }
   ///////////////////////////////////MAIN ACTIONS ///////////////////////////////////////////
+
+  ///////////////////////////////////CAT LOVER  ///////////////////////////////////////////
 
   kittenPush() {
     //this.vitesse = 4;
@@ -340,7 +356,6 @@ class Game {
     }
     ///////////////////////////// KITTEN ACTIONS ////////////////////////////////////
     for (let i = 0; i < this.kittens.length; i++) {
-      //let numberKittenSaved = 0;
       let kitten = this.kittens[i];
       //console.log();
       kitten.draw();
@@ -349,11 +364,10 @@ class Game {
       ///////////////////////////// COLLISIONS ////////////////////////////////////
       if (this.checkCatch(kitten, this.basket)) {
         this.score += 5;
-        //numberKittenSaved++;
-        //console.log((numberKittenSaved += kitten));
-        this.numberKittenSaved.push(kitten);
+
+        this.numberSaved.push(kitten);
         this.kittens.splice(kitten, 1);
-        return (this.kittenSaved = this.numberKittenSaved.length);
+        return (this.animalSaved = this.numberSaved.length);
       } else if (kitten.y + 50 >= this.canvas.height + 100) {
         this.kittens.splice(kitten, 1);
       }
@@ -397,6 +411,86 @@ class Game {
     }
     return this.score;
   }
+
+  ///////////////////////////////////DOG LOVER  ///////////////////////////////////////////
+
+  puppiesPushReverse() {
+    //this.vitesse = 4;
+
+    if (this.frames % this.vitesse === 0) {
+      if (this.score >= 50) {
+        this.vitesse = 5;
+      }
+      if (this.score >= 100) {
+        this.vitesse = 4;
+      }
+      if (this.score >= 150) {
+        this.vitesse = 3;
+      }
+      if (this.frames % 60 === 0) {
+        this.puppies.push(new Puppy(this.canvas, this.ctx));
+      }
+      //console.log(this.vitesse);
+    }
+    ///////////////////////////// KITTEN ACTIONS ////////////////////////////////////
+    for (let i = 0; i < this.puppies.length; i++) {
+      let puppy = this.puppies[i];
+      //console.log();
+      puppy.draw();
+      puppy.move();
+
+      ///////////////////////////// COLLISIONS ////////////////////////////////////
+      if (this.checkCatch(puppy, this.basket)) {
+        this.score += 5;
+        this.numberSaved.push(puppy);
+        this.puppies.splice(puppy, 1);
+        return (this.animalSaved = this.numberSaved.length);
+      } else if (puppy.y + 50 >= this.canvas.height + 100) {
+        this.puppies.splice(puppy, 1);
+      }
+    }
+
+    //return this.score;
+  }
+
+  kittenPushReverse() {
+    if (this.frames % this.vitesse === 0) {
+      this.vitesse = 5;
+      if (this.score >= 50) {
+        this.vitesse = 4;
+      }
+      if (this.score >= 100) {
+        this.vitesse = 3;
+      }
+      if (this.score >= 150) {
+        this.vitesse = 2;
+      }
+      if (this.frames % 120 === 0) {
+        this.kittens.push(new Kitten(this.canvas, this.ctx));
+      }
+      //console.log(this.vitesse);
+    }
+
+    ///////////////////////////// PUPPIES ACTIONS ////////////////////////////////////
+    for (let i = 0; i < this.kittens.length; i++) {
+      let kitten = this.kittens[i];
+      kitten.draw();
+      kitten.move();
+      ///////////////////////////// COLLISIONS ////////////////////////////////////
+      if (this.checkCatch(kitten, this.basket)) {
+        //clearInterval(this.intervalId);
+        this.score -= 15;
+        this.kittens.splice(kitten, 1);
+        //return this.score;
+      } else if (kitten.y + 50 >= this.canvas.height + 100) {
+        this.kittens.splice(kitten, 1);
+      }
+    }
+    return this.score;
+  }
+
+  ///////////////////////////// BABY ////////////////////////////////////
+
   babyPush() {
     if (this.score >= 50) {
       this.baby.outOfBound();
@@ -480,15 +574,22 @@ class Game {
     const scoreParagraph = document.querySelector("#looser-board h3 span");
     const endGame = document.querySelector("#game-board");
     const endGameNav = document.querySelector(".navigation");
-    const savedNumber = document.querySelector(".numberKitten");
+    const savedNumber = document.querySelector(".number-saved");
+    const loveKind = document.querySelector(".animal-kind");
+    console.log(loveKind);
     clearInterval(this.intervalId);
     removeEventListener("keydown", addKeydownEvent);
     this.puppies = [];
     this.kittens = [];
-    this.numberKittenSaved = [];
+    this.numberSaved = [];
     //this.intervalId = null;
     this.canvas.innerHTML = "";
-    savedNumber.textContent = this.kittenSaved;
+    savedNumber.textContent = this.animalSaved;
+    if (canvasBlock.classList.contains("cat-lover")) {
+      loveKind.textContent = "Kitten";
+    } else if (canvasBlock.classList.contains("dog-lover")) {
+      loveKind.textContent = "Puppies";
+    }
     scoreParagraph.textContent = this.score;
     endGame.style.display = "none";
     endGameNav.style.display = "none";
