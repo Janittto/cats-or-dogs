@@ -159,16 +159,16 @@ class Baby {
     };
   }
   topEdge() {
-    return this.y - 10;
+    return this.y + 10;
   }
   rightEdge() {
-    return this.x + this.width - 10;
+    return this.x + this.width - 15;
   }
   bottomEdge() {
-    return this.y + this.height - 10;
+    return this.y + this.height - 15;
   }
   leftEdge() {
-    return this.x - 10;
+    return this.x + 10;
   }
   outOfBound() {
     if (this.x + this.width > this.canvas.width) {
@@ -271,6 +271,8 @@ class Game {
     this.backgroundFire = new BackgroundFire(this.canvas, this.ctx);
     this.basket = new Basket(this.canvas, this.ctx);
     this.kittens = [];
+    this.numberKittenSaved = [];
+    this.kittenSaved = 0;
     this.puppies = [];
     this.baby = new Baby(this.canvas, this.ctx);
     ///////////////////////////// ADD ON /////////////////////////////////////////
@@ -320,6 +322,7 @@ class Game {
 
   kittenPush() {
     //this.vitesse = 4;
+
     if (this.frames % this.vitesse === 0) {
       if (this.score >= 50) {
         this.vitesse = 5;
@@ -337,18 +340,26 @@ class Game {
     }
     ///////////////////////////// KITTEN ACTIONS ////////////////////////////////////
     for (let i = 0; i < this.kittens.length; i++) {
+      //let numberKittenSaved = 0;
       let kitten = this.kittens[i];
+      //console.log();
       kitten.draw();
       kitten.move();
+
       ///////////////////////////// COLLISIONS ////////////////////////////////////
       if (this.checkCatch(kitten, this.basket)) {
         this.score += 5;
+        //numberKittenSaved++;
+        //console.log((numberKittenSaved += kitten));
+        this.numberKittenSaved.push(kitten);
         this.kittens.splice(kitten, 1);
+        return (this.kittenSaved = this.numberKittenSaved.length);
       } else if (kitten.y + 50 >= this.canvas.height + 100) {
         this.kittens.splice(kitten, 1);
       }
     }
-    return this.score;
+
+    //return this.score;
   }
 
   puppiesPush() {
@@ -366,7 +377,7 @@ class Game {
       if (this.frames % 120 === 0) {
         this.puppies.push(new Puppy(this.canvas, this.ctx));
       }
-      console.log(this.vitesse);
+      //console.log(this.vitesse);
     }
 
     ///////////////////////////// PUPPIES ACTIONS ////////////////////////////////////
@@ -410,7 +421,7 @@ class Game {
       this.baby.shake();
 
       setTimeout(() => {
-        console.log("end");
+        //console.log("end");
 
         this.gameOver();
       }, 2000);
@@ -469,12 +480,15 @@ class Game {
     const scoreParagraph = document.querySelector("#looser-board h3 span");
     const endGame = document.querySelector("#game-board");
     const endGameNav = document.querySelector(".navigation");
+    const savedNumber = document.querySelector(".numberKitten");
     clearInterval(this.intervalId);
     removeEventListener("keydown", addKeydownEvent);
     this.puppies = [];
     this.kittens = [];
+    this.numberKittenSaved = [];
     //this.intervalId = null;
     this.canvas.innerHTML = "";
+    savedNumber.textContent = this.kittenSaved;
     scoreParagraph.textContent = this.score;
     endGame.style.display = "none";
     endGameNav.style.display = "none";
