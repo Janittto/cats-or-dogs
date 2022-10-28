@@ -17,11 +17,9 @@ btnStart.forEach((element) => {
     btnStart.disabled = true;
     //element.style.display = "none";
     if (element.classList.contains("cat")) {
-      console.log("cat lover");
       return canvasBlock.classList.add("cat-lover");
     } else if (element.classList.contains("dog")) {
       return canvasBlock.classList.add("dog-lover");
-      console.log("dog lover");
     }
   });
 });
@@ -319,11 +317,9 @@ class Game {
         console.log("fini");
       }
       if (canvasBlock.classList.contains("cat-lover")) {
-        console.log("lol");
         this.kittenPush();
         this.puppiesPush();
       } else if (canvasBlock.classList.contains("dog-lover")) {
-        console.log("lol reverse");
         this.kittenPushReverse();
         this.puppiesPushReverse();
       }
@@ -581,7 +577,7 @@ class Game {
     const endGame = document.querySelector("#game-board");
     const endGameNav = document.querySelector(".navigation");
     const savedNumber = document.querySelector(".number-saved");
-    const loveKind = document.querySelector(".animal-kind");
+    const loveKind = document.querySelector(".animal-kind-saved");
     console.log(loveKind);
     clearInterval(this.intervalId);
     removeEventListener("keydown", addKeydownEvent);
