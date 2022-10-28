@@ -554,12 +554,18 @@ class Game {
 
   pauseAction() {
     const notice = document.querySelector(".aside");
+    const loveKind = document.querySelector(".animal-kind");
     if (btnStop.classList.contains("paused")) {
       clearInterval(this.intervalId);
       btnStop.classList.remove("paused");
       btnStop.classList.add("played");
       btnStop.textContent = "play";
       notice.style.display = "block";
+      if (canvasBlock.classList.contains("cat-lover")) {
+        loveKind.textContent = "Kitten";
+      } else if (canvasBlock.classList.contains("dog-lover")) {
+        loveKind.textContent = "Puppies";
+      }
     } else {
       this.mainGame();
       btnStop.classList.remove("played");
